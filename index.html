@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6-Day Upper Body Split</title>
+
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <!-- Premium Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --color-text-primary: #0f172a;
+      --color-text-secondary: #475569;
+      --color-text-tertiary: #64748b;
+      --color-border-secondary: #cbd5e1;
+      --color-border-tertiary: #e2e8f0;
+      --color-background-primary: #ffffff;
+      --color-background-secondary: #f8fafc;
+      --color-background-app: #f1f5f9;
+      --border-radius-md: 12px;
+      --border-radius-lg: 20px;
+      --shadow-soft: 0 10px 40px -10px rgba(0, 0, 0, 0.08);
+      --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f6f8fb 0%, #e5ebf4 100%);
+      min-height: 100vh;
+      font-family: var(--font-sans);
+      color: var(--color-text-primary);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 3rem 1rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    .header {
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .header-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 6px;
+      letter-spacing: -0.02em;
+    }
+
+    .header-sub {
+      font-size: 15px;
+      color: var(--color-text-secondary);
+    }
+
+    .day-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+      justify-content: center;
+    }
+
+    .tab-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px 18px;
+      border-radius: 16px;
+      border: 2px solid transparent;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(8px);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      min-width: 76px;
+      flex: 1;
+      max-width: 110px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .tab-day {
+      font-size: 13px;
+      color: var(--color-text-tertiary);
+      margin-bottom: 2px;
+      font-weight: 500;
+    }
+
+    .tab-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--color-text-secondary);
+    }
+
+    .tab-btn.active {
+      background: var(--color-background-primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .tab-btn.active .tab-day,
+    .tab-btn.active .tab-label {
+      color: inherit;
+    }
+
+    .tab-btn:hover:not(.active) {
+      background: #ffffff;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .day-panel {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .panel-top {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: var(--border-radius-lg);
+      padding: 2rem;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .day-focus-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--color-border-tertiary);
+    }
+
+    .focus-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .focus-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .focus-sub {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      margin-top: 4px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .metric {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+
+    .metric-label {
+      font-size: 11px;
+      color: var(--color-text-tertiary);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .metric-val {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .ex-header {
+      display: grid;
+      grid-template-columns: 32px 1fr 48px 80px;
+      gap: 12px;
+      padding: 0 16px 12px;
+      align-items: center;
+      border-bottom: 2px solid var(--color-border-tertiary);
+      margin-bottom: 12px;
+    }
+
+    .ex-header span {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--color-text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .ex-header span:last-child {
+      text-align: right;
+    }
+
+    .ex-row {
+      display: grid;
+      grid-template-columns: 32px 1fr 48px 80px;
+      gap: 12px;
+      align-items: center;
+      padding: 14px 16px;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 1px solid transparent;
+      margin-bottom: 8px;
+      background: transparent;
+    }
+
+    .ex-row:hover {
+      background: #ffffff;
+      border-color: var(--color-border-tertiary);
+      box-shadow: var(--shadow-sm);
+      transform: translateX(4px);
+    }
+
+    .ex-row.open {
+      background: #ffffff;
+      border-color: var(--color-border-tertiary);
+      box-shadow: var(--shadow-sm);
+      transform: translateX(4px);
+    }
+
+    .ex-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      flex-shrink: 0;
+      box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.5);
+    }
+
+    .ex-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    .ex-muscle {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--color-text-tertiary);
+      margin-top: 3px;
+    }
+
+    .ex-sets {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      text-align: center;
+    }
+
+    .ex-reps {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--color-text-secondary);
+      text-align: right;
+    }
+
+    .form-panel {
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      margin-bottom: 16px;
+      padding: 1.75rem;
+      background: #fafafa;
+      border: 1px dashed var(--color-border-secondary);
+      border-radius: 16px;
+      display: none;
+      box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .form-panel.open {
+      display: block;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    .form-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--color-text-primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--color-border-tertiary);
+      padding-bottom: 12px;
+    }
+
+    .form-layout {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .form-gif-container {
+      width: 100%;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--color-border-tertiary);
+      background: #ffffff;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .form-gif {
+      width: 100%;
+      height: auto;
+      max-height: 220px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .form-steps-container {
+      flex: 1;
+    }
+
+    .form-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .form-step {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--color-text-secondary);
+      line-height: 1.6;
+    }
+
+    .step-dot {
+      width: 24px;
+      height: 24px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .cues-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .cue-pill {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--color-border-secondary);
+      background: #ffffff;
+      color: var(--color-text-secondary);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    }
+
+    .tip-box {
+      margin-top: 2rem;
+      padding: 16px 20px;
+      border-left: 4px solid;
+      border-radius: 0 16px 16px 0;
+      font-size: 14.5px;
+      line-height: 1.6;
+      font-weight: 600;
+      display: flex;
+      align-items: flex-start;
+      background: #ffffff;
+      box-shadow: var(--shadow-sm);
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Adjustments */
+    @media (min-width: 640px) {
+      .form-layout {
+        flex-direction: row;
+      }
+
+      .form-gif-container {
+        width: 260px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wrap {
+        padding: 1.5rem 1rem;
+      }
+
+      .panel-top {
+        padding: 1.25rem;
+      }
+
+      .ex-header,
+      .ex-row {
+        grid-template-columns: 28px 1fr 36px 50px;
+        gap: 10px;
+        padding: 12px 10px;
+      }
+
+      .ex-name {
+        font-size: 15px;
+      }
+
+      .ex-reps {
+        font-size: 14px;
+      }
+
+      .ex-sets {
+        font-size: 14px;
+      }
+
+      .tab-btn {
+        padding: 10px;
+        min-width: calc(33.333% - 8px);
+      }
+
+      .metrics {
+        gap: 8px;
+      }
+
+      .metric {
+        padding: 12px 8px;
+      }
+
+      .metric-val {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2 class="sr-only">6-day upper body workout with exercise form guides</h2>
+  <div class="wrap">
+    <div class="header">
+      <div class="header-title"><i class="ti ti-barbell" aria-hidden="true"
+          style="font-size:30px;vertical-align:-4px;margin-right:10px;color:#185FA5;"></i>Upper Body Split</div>
+      <div class="header-sub">Click any exercise to view the 6-day form cues and animations</div>
+    </div>
+    <div class="day-tabs" id="tabs"></div>
+    <div id="content"></div>
+  </div>
+
+  <script>
+    const DAYS = [
+      {
+        label: "Mon", focus: "Chest & Triceps", icon: "ti-layout-bottombar",
+        accentBg: "#E6F1FB", accentText: "#0C447C", accentBorder: "#185FA5",
+        volume: 6, sets: 20,
+        tip: "Keep elbows at ~75° on bench press to protect the shoulder joint.",
+        tipColor: "#E6F1FB", tipText: "#0C447C", tipBorder: "#378ADD",
+        exercises: [
+          {
+            name: "Barbell bench press", muscle: "Chest, Triceps", sets: "4", reps: "6–8",
+            steps: ["Lie flat, feet planted firmly on the floor. Grip bar just wider than shoulder-width.", "Unrack and lower the bar with control to mid-chest — 2 seconds down.", "Press through the chest, not the shoulders. Full lockout at the top.", "Keep your lower back naturally arched; shoulder blades retracted and depressed."],
+            cues: ["Chest up", "Elbows 75°", "Drive heels", "Full lockout"]
+          },
+          {
+            name: "Incline dumbbell press", muscle: "Upper Chest", sets: "3", reps: "8–10",
+            steps: ["Set bench to 30–45°. Hold dumbbells at shoulder width at chest level.", "Lower with elbows flared slightly, feel the stretch at the bottom.", "Press up and slightly inward — dumbbells touch lightly at the top.", "Maintain scapular retraction throughout the entire movement."],
+            cues: ["Neutral wrists", "Slow eccentric", "Squeeze top", "Don't flare"]
+          },
+          {
+            name: "Cable chest flye", muscle: "Chest, Serratus", sets: "3", reps: "12–15",
+            steps: ["Set cables at chest height. Stand in a split stance for stability.", "Start with arms wide, slight bend in elbows — keep that angle fixed.", "Bring handles together in a hugging arc, squeezing the chest hard.", "Control the return — don't let the stack slam back."],
+            cues: ["Soft elbow bend", "Arc motion", "Peak squeeze", "Slow return"]
+          },
+          {
+            name: "Triceps rope pushdown", muscle: "Triceps (lateral head)", sets: "3", reps: "12–15",
+            steps: ["Stand close to the cable machine. Grip rope with a neutral grip.", "Keep elbows pinned to your sides — they should not move at all.", "Push down and flare the rope ends outward at the bottom for peak contraction.", "Return slowly until forearms are parallel to the floor."],
+            cues: ["Elbows fixed", "Flare at bottom", "No swinging", "Full extension"]
+          },
+          {
+            name: "Overhead triceps extension", muscle: "Triceps (long head)", sets: "3", reps: "10–12",
+            steps: ["Hold one dumbbell with both hands overhead, arms straight.", "Lower the weight behind your head by bending elbows — 2 seconds down.", "Press back to full extension, focusing on the long head of the tricep.", "Keep your core braced and avoid flaring the ribcage."],
+            cues: ["Core braced", "Elbows in", "Full stretch", "Slow descent"]
+          },
+          {
+            name: "Decline push-up", muscle: "Lower Chest, Triceps", sets: "2", reps: "Failure",
+            steps: ["Place feet on a bench, hands on the floor wider than shoulder-width.", "Lower chest to the floor with control — 2 full seconds.", "Press up powerfully. Keep your body in a straight line throughout.", "Squeeze chest hard at the top before the next rep."],
+            cues: ["Straight body", "Slow down", "Explosive up", "Chest squeeze"]
+          },
+        ]
+      },
+      {
+        label: "Tue", focus: "Back & Biceps", icon: "ti-arrow-back-up",
+        accentBg: "#E1F5EE", accentText: "#085041", accentBorder: "#1D9E75",
+        volume: 6, sets: 20,
+        tip: "Initiate rows with your elbows, not your hands — this activates the lats more effectively.",
+        tipColor: "#E1F5EE", tipText: "#085041", tipBorder: "#1D9E75",
+        exercises: [
+          {
+            name: "Pull-ups / lat pulldown", muscle: "Lats, Biceps", sets: "4", reps: "6–8",
+            steps: ["Grip bar just wider than shoulders, palms facing away.", "Hang at full extension. Depress your scapula first, then pull.", "Lead with your elbows, driving them toward your hip pockets.", "Lower slowly to a full dead hang between each rep."],
+            cues: ["Depress scapula", "Elbow-driven", "Full hang", "No kipping"]
+          },
+          {
+            name: "Barbell bent-over row", muscle: "Mid-Back, Rhomboids", sets: "4", reps: "8–10",
+            steps: ["Hinge at hips to ~45°, neutral spine — not rounded. Brace core hard.", "Pull bar to the lower chest / upper abdomen region.", "Squeeze the shoulder blades together at the top for 1 second.", "Lower the bar with control — resist the weight on the way down."],
+            cues: ["Neutral spine", "Pull low", "Scapula squeeze", "Hip hinge"]
+          },
+          {
+            name: "Seated cable row", muscle: "Mid-Back, Traps", sets: "3", reps: "10–12",
+            steps: ["Sit upright, slight knee bend. Grip handle with a neutral grip.", "Start from a slight forward lean — feel the lat stretch.", "Row handle to your belly button, driving elbows behind the body.", "Pause for 1 second at contraction, then return under control."],
+            cues: ["Tall posture", "Elbows back", "1s hold", "Controlled return"]
+          },
+          {
+            name: "Single-arm DB row", muscle: "Lats, Teres Major", sets: "3", reps: "10–12",
+            steps: ["Place one hand and knee on a bench for support. Back parallel to floor.", "Hold dumbbell with neutral grip. Allow a full stretch at the bottom.", "Drive elbow up and back — think 'elbow to ceiling', not 'hand to hip'.", "Lower the dumbbell fully before the next rep."],
+            cues: ["Elbow to ceiling", "Full ROM", "No rotation", "Neutral wrist"]
+          },
+          {
+            name: "Barbell curl", muscle: "Biceps (long + short head)", sets: "3", reps: "8–10",
+            steps: ["Stand upright, EZ-bar or straight bar at hip level. Elbows at sides.", "Curl the weight by flexing the elbow — do not swing the torso.", "Squeeze the bicep hard at the top. Slow your descent to 3 seconds.", "Stop just before full elbow extension to keep tension on the muscle."],
+            cues: ["No swing", "Elbows fixed", "Slow negative", "Constant tension"]
+          },
+          {
+            name: "Hammer curl", muscle: "Brachialis, Forearm", sets: "3", reps: "10–12",
+            steps: ["Stand with dumbbells at sides, palms facing each other (neutral grip).", "Curl both arms simultaneously, maintaining neutral wrist throughout.", "Squeeze at the top — feel the brachialis and forearm engagement.", "Lower to full extension with control."],
+            cues: ["Neutral grip", "No wrist rotation", "Controlled descent", "Full extension"]
+          },
+        ]
+      },
+      {
+        label: "Wed", focus: "Shoulders & Traps", icon: "ti-arrows-up",
+        accentBg: "#FFF3E0", accentText: "#E65100", accentBorder: "#FF9800",
+        volume: 6, sets: 21,
+        tip: "A slight forward lean on lateral raises shifts the load to the mid-delt sweet spot.",
+        tipColor: "#FFF3E0", tipText: "#E65100", tipBorder: "#FF9800",
+        exercises: [
+          {
+            name: "Seated overhead press", muscle: "Deltoids, Triceps", sets: "4", reps: "6–8",
+            steps: ["Sit upright, back supported. Grip bar just outside shoulder-width.", "Lower the bar to chin/clavicle level — full range without neck risk.", "Press directly overhead to full lockout, slight forward bar path.", "Brace your core and avoid excessive lumbar extension."],
+            cues: ["Core braced", "Full lockout", "Neutral spine", "Elbows forward"]
+          },
+          {
+            name: "Arnold press", muscle: "All 3 Delt Heads", sets: "3", reps: "10–12",
+            steps: ["Start with dumbbells at chin level, palms facing you.", "Press upward while rotating palms outward — finish with palms facing away.", "Reverse the rotation on the way down — control the full arc.", "Keep the movement fluid, not jerky; feel all three heads engage."],
+            cues: ["Rotate smoothly", "Full arc", "Slow descent", "Core engaged"]
+          },
+          {
+            name: "Lateral raise", muscle: "Medial Deltoid", sets: "4", reps: "12–15",
+            steps: ["Stand with slight forward lean at hips (~10°). Dumbbells at sides.", "Raise arms to just above shoulder height in a wide arc.", "Lead with the pinkies — imagine pouring water from a jug.", "Lower slowly over 3 seconds — the eccentric builds the most delt."],
+            cues: ["Pinky up", "Slight lean", "Slow eccentric", "Just above shoulder"]
+          },
+          {
+            name: "Cable front raise", muscle: "Anterior Deltoid", sets: "3", reps: "12–15",
+            steps: ["Attach a rope or single handle at the low pulley, face away from machine.", "With slight elbow bend, raise arm forward to just above shoulder height.", "Pause briefly at the top, squeezing the front delt.", "Lower slowly back to hip level."],
+            cues: ["Slight elbow bend", "Straight path", "Pause at top", "Controlled return"]
+          },
+          {
+            name: "Reverse pec deck", muscle: "Rear Deltoid", sets: "3", reps: "12–15",
+            steps: ["Face the machine, adjust pad height so arms are at shoulder level.", "With soft elbows, pull handles outward in a wide arc — think 'wings'.", "Squeeze shoulder blades together at full extension for 1 second.", "Return slowly — don't let the plates crash."],
+            cues: ["Soft elbows", "Rear delt focus", "Scapula retraction", "Slow return"]
+          },
+          {
+            name: "Barbell shrug", muscle: "Upper Trapezius", sets: "4", reps: "10–12",
+            steps: ["Hold bar with an overhand grip, arms straight, slight forward lean.", "Shrug straight up — think 'shoulders to ears', no rolling forward.", "Hold the peak contraction for 1–2 seconds to really work the trap.", "Lower slowly to a full stretch at the bottom."],
+            cues: ["No rolling", "Straight up", "2s hold", "Full stretch"]
+          },
+        ]
+      },
+      {
+        label: "Thu", focus: "Chest & Biceps", icon: "ti-layout-bottombar",
+        accentBg: "#E6F1FB", accentText: "#0C447C", accentBorder: "#185FA5",
+        volume: 6, sets: 19,
+        tip: "Chest dips: lean forward slightly and flare elbows to maximally recruit the pectorals.",
+        tipColor: "#E6F1FB", tipText: "#0C447C", tipBorder: "#378ADD",
+        exercises: [
+          {
+            name: "Incline barbell press", muscle: "Upper Chest, Triceps", sets: "4", reps: "6–8",
+            steps: ["Set bench to 30–45°. Grip bar just wider than shoulders.", "Lower bar to upper chest — feel the upper pec stretch at the bottom.", "Press up explosively, keeping shoulder blades retracted throughout.", "Do not bounce the bar off the chest."],
+            cues: ["Upper chest target", "Retract scapula", "Explosive press", "Controlled descent"]
+          },
+          {
+            name: "Dumbbell bench press", muscle: "Chest (full)", sets: "3", reps: "8–10",
+            steps: ["Lie flat, dumbbells above chest with neutral or pronated grip.", "Lower dumbbells along the side of the chest — elbows at ~75°.", "Press back to full extension, squeezing the chest together at the top.", "Greater range of motion than barbell — take advantage of the stretch."],
+            cues: ["Deep stretch", "Squeeze at top", "Wrists stacked", "Elbows 75°"]
+          },
+          {
+            name: "Chest dip", muscle: "Lower Chest, Triceps", sets: "3", reps: "8–12",
+            steps: ["Grip parallel bars. Lean forward about 20–30° for chest emphasis.", "Lower until you feel a strong chest stretch — upper arms near parallel.", "Press through the palms to lock out, squeezing chest at the top.", "Add weight with a belt once bodyweight feels easy."],
+            cues: ["Lean forward", "Deep dip", "Chest squeeze", "Controlled descent"]
+          },
+          {
+            name: "Pec deck cross", muscle: "Inner Chest", sets: "3", reps: "12–15",
+            steps: ["Adjust machine or cables to chest height. Slight forward hinge.", "Maintain soft elbow bend throughout. Bring hands together in an arc.", "Squeeze the pecs hard at the midline — cross hands for extra contraction.", "Open arms slowly, feeling the chest stretch on every rep."],
+            cues: ["Arc motion", "Peak squeeze", "Cross at midline", "Slow eccentric"]
+          },
+          {
+            name: "Incline DB curl", muscle: "Biceps (long head)", sets: "3", reps: "10–12",
+            steps: ["Lie on an incline bench (~60°), arms hanging freely behind the body.", "Curl both dumbbells simultaneously — the stretch here is excellent.", "Supinate wrists at the top to fully shorten the bicep.", "Lower all the way down for maximum long-head engagement."],
+            cues: ["Full hang", "Supinate up", "Long head stretch", "Slow negative"]
+          },
+          {
+            name: "Concentration curl", muscle: "Biceps (peak)", sets: "3", reps: "12–15",
+            steps: ["Sit on a bench, elbow braced on inner thigh. Dumbbell hanging.", "Curl the dumbbell upward, keeping the upper arm completely still.", "Squeeze as hard as possible at the top — full supination.", "Lower slowly, keeping constant tension."],
+            cues: ["Elbow braced", "No swinging", "Full supination", "Slow descent"]
+          },
+        ]
+      },
+      {
+        label: "Fri", focus: "Back & Triceps", icon: "ti-arrow-back-up",
+        accentBg: "#E1F5EE", accentText: "#085041", accentBorder: "#1D9E75",
+        volume: 6, sets: 19,
+        tip: "Face pulls should be a staple for shoulder health — never skip them.",
+        tipColor: "#E1F5EE", tipText: "#085041", tipBorder: "#1D9E75",
+        exercises: [
+          {
+            name: "Romanian deadlift", muscle: "Hamstrings, Erectors", sets: "4", reps: "5–6",
+            steps: ["Stand with bar at hip level, grip just outside hips — overhand or mixed.", "Hinge at the hips, pushing them back. Bar slides down the thighs.", "Keep a neutral spine throughout — back must not round.", "Drive hips forward to return to standing; squeeze glutes at lockout."],
+            cues: ["Hip hinge", "Neutral spine", "Bar close to legs", "Glutes at top"]
+          },
+          {
+            name: "Wide lat pulldown", muscle: "Lats, Teres Major", sets: "3", reps: "10–12",
+            steps: ["Sit with thighs secured. Grip the bar wide, overhand.", "Lean back slightly (~15°). Pull bar down to upper chest level.", "Drive elbows down and back — think 'elbows to back pockets'.", "Extend arms slowly back to full stretch before next rep."],
+            cues: ["Slight lean back", "Elbows down", "Full stretch", "Chest up"]
+          },
+          {
+            name: "Chest-support row", muscle: "Mid-Back, Rhomboids", sets: "3", reps: "10–12",
+            steps: ["Chest on pad (supported) or wide stance hip hinge. Neutral grip.", "Pull handles toward the lower chest, not the stomach.", "Hold the peak contraction with shoulder blades pinched hard for 1 second.", "Lower fully — don't cheat the range of motion."],
+            cues: ["Chest to pad", "Scapula pinch", "1s hold", "Full ROM"]
+          },
+          {
+            name: "Face pull", muscle: "Rear Delt, Rotator Cuff", sets: "3", reps: "15–20",
+            steps: ["Set cable at upper-face height. Grip rope with neutral grip.", "Pull the rope toward your face, leading with elbows high and wide.", "Externally rotate at the end — wrists behind elbows, hands at ear level.", "This movement heals shoulders — never rush it. Full control."],
+            cues: ["Elbows high", "External rotation", "Slow and controlled", "High reps"]
+          },
+          {
+            name: "Close-grip press", muscle: "Triceps, Inner Chest", sets: "3", reps: "8–10",
+            steps: ["Grip bar at shoulder-width or slightly inside. Do not grip too narrow.", "Lower bar to lower chest/sternum area with elbows tucked close.", "Press to full lockout, feeling the triceps fully contract.", "Keep wrists stacked directly above elbows throughout."],
+            cues: ["Shoulder-width grip", "Elbows tucked", "Full lockout", "Wrists stacked"]
+          },
+          {
+            name: "EZ-bar skull crusher", muscle: "Triceps (all heads)", sets: "3", reps: "10–12",
+            steps: ["Lie flat, EZ-bar above face with arms extended.", "Lower bar toward the forehead by bending only the elbows — upper arms stay still.", "Stop just before touching the forehead; extend back to lockout.", "Keep the motion slow — this exercise has a bad reputation for a reason."],
+            cues: ["Upper arms still", "Slow descent", "Don't touch forehead", "Full extension"]
+          },
+        ]
+      },
+      {
+        label: "Sat", focus: "Shoulders & Arms", icon: "ti-arrows-up",
+        accentBg: "#FFF3E0", accentText: "#E65100", accentBorder: "#FF9800",
+        volume: 6, sets: 20,
+        tip: "Today is volume day — prioritize mind-muscle connection over load.",
+        tipColor: "#FFF3E0", tipText: "#E65100", tipBorder: "#FF9800",
+        exercises: [
+          {
+            name: "Dumbbell press", muscle: "Deltoids, Triceps", sets: "3", reps: "10–12",
+            steps: ["Sit or stand, dumbbells at shoulder level, palms facing forward.", "Press straight up to a full lockout — slight inward arc is fine.", "Lower with control to just below shoulder height for full range.", "Keep the core braced to avoid over-extending the lower back."],
+            cues: ["Full lockout", "Core engaged", "Controlled descent", "No hip drive"]
+          },
+          {
+            name: "Cable lateral raise", muscle: "Medial Deltoid", sets: "4", reps: "15–20",
+            steps: ["Stand side-on to a low cable. Grip handle with the far hand.", "Raise arm out to the side to just above shoulder level in a smooth arc.", "Cable maintains constant tension — more effective than dumbbells at top.", "Lower slowly — the eccentric phase is where the growth happens."],
+            cues: ["Constant tension", "Pinky high", "Slow eccentric", "Just above shoulder"]
+          },
+          {
+            name: "Rear delt raise", muscle: "Rear Deltoid, Traps", sets: "3", reps: "15–20",
+            steps: ["Hinge forward at hips to ~80° — almost parallel to the floor.", "Raise arms out wide, leading with the elbows, to shoulder height.", "Squeeze the rear delts at the top — really focus on feeling them contract.", "Lower slowly — these are small muscles, don't rush the reps."],
+            cues: ["Near parallel lean", "Wide arc", "Rear delt squeeze", "High rep focus"]
+          },
+          {
+            name: "EZ-bar curl", muscle: "Biceps, Brachialis", sets: "4", reps: "10–12",
+            steps: ["Stand tall, EZ-bar at hips on an angled grip. Elbows at sides.", "Curl up with a smooth arc — no body swing. Squeeze at the top.", "Lower the bar slowly over 3 seconds — fight gravity the whole way.", "Stop just before full extension to keep bicep tension constant."],
+            cues: ["No swinging", "Slow negative", "Squeeze top", "Constant tension"]
+          },
+          {
+            name: "Cable curl", muscle: "Biceps (peak contraction)", sets: "3", reps: "12–15",
+            steps: ["Face the low pulley. Grip single handle or bar, elbows at sides.", "Curl upward — cable keeps tension at both the bottom and top of the lift.", "Squeeze hard at the top. Hold 1 second.", "Lower to full extension with control — don't let the stack rest."],
+            cues: ["Constant tension", "1s squeeze", "Full extension", "Elbows pinned"]
+          },
+          {
+            name: "Bench triceps dip", muscle: "Triceps, Chest", sets: "3", reps: "12–15",
+            steps: ["Hands on a bench edge behind you, legs extended forward.", "Lower your body by bending the elbows to 90° — keep back close to bench.", "Press through the palms to extend the arms to full lockout.", "Add a plate on your lap for extra resistance when bodyweight is easy."],
+            cues: ["Elbows back", "90° depth", "Full lockout", "Back close to bench"]
+          },
+        ]
+      },
+    ];
+
+    const tabs = document.getElementById('tabs');
+    const content = document.getElementById('content');
+    let activeDay = 0;
+    let openEx = null;
+
+    // --- GYMVISUAL GIF DIRECTORY ---
+    // Paste your copied GymVisual "Image Address" links between the quotes below.
+    const gymVisualLinks = {
+      // MONDAY: Chest & Triceps
+      "Barbell bench press": "https://gymvisual.com/img/p/2/9/0/5/8/29058.gif",
+      "Incline dumbbell press": "https://gymvisual.com/img/p/2/0/8/2/3/20823.gif",
+      "Cable chest flye": "https://gymvisual.com/img/p/2/4/7/6/0/24760.gif",
+      "Triceps rope pushdown": "https://gymvisual.com/img/p/4/9/7/4/4974.gif",
+      "Overhead triceps extension": "https://gymvisual.com/img/p/1/8/5/9/6/18596.gif",
+      "Decline push-up": "https://gymvisual.com/img/p/2/1/5/1/9/21519.gif",
+
+      // TUESDAY: Back & Biceps
+      "Pull-ups / lat pulldown": "https://media1.tenor.com/m/PVR9ra9tAwcAAAAC/pulley-pegada-aberta.gif",
+      "Barbell bent-over row": "https://media1.tenor.com/m/AYJ_bNXDvoUAAAAC/workout-muscles.gif",
+      "Seated cable row": "https://gymvisual.com/img/p/7/3/2/6/7326.gif",
+      "Single-arm DB row": "https://gymvisual.com/img/p/1/9/7/9/8/19798.gif",
+      "Barbell curl": "https://media1.tenor.com/m/bX1nOQO41_sAAAAC/bicep-curl.gif",
+      "Hammer curl": "https://media1.tenor.com/m/8Qj82Z1zQ-AAAAAC/hammer-curl.gif",
+
+      // WEDNESDAY: Shoulders & Traps
+      "Seated overhead press": "https://gymvisual.com/img/p/5/1/4/6/5146.gif",
+      "Arnold press": "https://gymvisual.com/img/p/8/7/3/9/8739.gif",
+      "Lateral raise": "https://gymvisual.com/img/p/1/9/1/5/1/19151.gif",
+      "Cable front raise": "https://gymvisual.com/img/p/4/8/9/5/4895.gif",
+      "Reverse pec deck": "https://gymvisual.com/img/p/5/3/3/8/5338.gif",
+      "Barbell shrug": "https://gymvisual.com/img/p/2/1/9/4/4/21944.gif",
+
+      // THURSDAY: Chest & Biceps
+      "Incline barbell press": "https://media1.tenor.com/m/v7T-YvFhX3cAAAAC/incline-bench-press.gif",
+      "Dumbbell bench press": "https://gymvisual.com/img/p/5/0/2/2/5022.gif",
+      "Chest dip": "https://gymvisual.com/img/p/4/9/8/4/4984.gif",
+      "Pec deck cross": "https://media1.tenor.com/m/Z4-eF_5g_IAAAAAC/cable-crossover-chest.gif",
+      "Incline DB curl": "https://gymvisual.com/img/p/2/0/9/5/0/20950.gif",
+      "Concentration curl": "https://gymvisual.com/img/p/2/8/1/1/8/28118.gif",
+
+      // FRIDAY: Back & Triceps
+      "Romanian deadlift": "https://gymvisual.com/img/p/2/8/5/3/2/28532.gif",
+      "Wide lat pulldown": "https://media1.tenor.com/m/pX4hF_4J_ZcAAAAC/lat-pulldown.gif",
+      "Chest-support row": "https://gymvisual.com/img/p/3/7/3/6/8/37368.gif",
+      "Face pull": "https://gymvisual.com/img/p/2/4/9/7/4/24974.gif",
+      "Close-grip press": "https://gymvisual.com/img/p/1/0/0/6/1/10061.gif",
+      "EZ-bar skull crusher": "https://gymvisual.com/img/p/1/8/2/4/3/18243.gif",
+
+      // SATURDAY: Shoulders & Arms
+      "Dumbbell press": "https://media1.tenor.com/m/mO_eX_0yEHgAAAAC/overhead-press.gif",
+      "Cable lateral raise": "https://gymvisual.com/img/p/3/5/4/3/5/35435.gif",
+      "Rear delt raise": "https://gymvisual.com/img/p/9/7/4/1/9741.gif",
+      "EZ-bar curl": "https://media1.tenor.com/m/bX1nOQO41_sAAAAC/bicep-curl.gif",
+      "Cable curl": "https://media1.tenor.com/m/bX1nOQO41_sAAAAC/bicep-curl.gif",
+      "Bench triceps dip": "https://gymvisual.com/img/p/5/5/5/2/5552.gif"
+    };
+
+    // This function intelligently returns an online GIF based on the dictionary above
+    function getOnlineGif(muscle, exerciseName) {
+      // If the exact exercise name exists in our list above, use it!
+      if (gymVisualLinks[exerciseName]) {
+        return gymVisualLinks[exerciseName];
+      }
+
+      // Fallback default fitness gif just in case
+      return 'https://media.giphy.com/media/l41YwVrvPqO1SnbOw/giphy.gif';
+    }
+
+    function renderDay(i) {
+      const d = DAYS[i];
+      openEx = null;
+      content.innerHTML = `
+      <div class="panel-top">
+        <div class="day-focus-row">
+          <div class="focus-icon" style="background:${d.accentBg}">
+            <i class="ti ${d.icon}" style="color:${d.accentText};" aria-hidden="true"></i>
+          </div>
+          <div>
+            <div class="focus-title">${d.focus}</div>
+            <div class="focus-sub">${d.volume} exercises · ~${d.sets} sets total</div>
+          </div>
+        </div>
+        
+        <div class="metrics">
+          <div class="metric"><div class="metric-label">Exercises</div><div class="metric-val">${d.volume}</div></div>
+          <div class="metric"><div class="metric-label">Total sets</div><div class="metric-val">${d.sets}</div></div>
+          <div class="metric"><div class="metric-label">Est. time</div><div class="metric-val">~60m</div></div>
+        </div>
+        
+        <div class="ex-header">
+          <span></span><span>Exercise</span><span style="text-align:center">Sets</span><span style="text-align:right">Reps</span>
+        </div>
+        
+        <div id="ex-list">
+          ${d.exercises.map((e, j) => `
+            <div class="ex-row" id="row-${j}" onclick="toggleEx(${j})">
+              <div class="ex-num" style="background:${d.accentBg};color:${d.accentText}">${j + 1}</div>
+              <div>
+                <div class="ex-name">${e.name}</div>
+                <div class="ex-muscle">${e.muscle}</div>
+              </div>
+              <div class="ex-sets">${e.sets}</div>
+              <div class="ex-reps">${e.reps}</div>
+            </div>
+            
+            <div class="form-panel" id="form-${j}">
+              <div class="form-title">
+                <i class="ti ti-list-check" style="font-size:18px;color:${d.accentText}" aria-hidden="true"></i> Form & Technique
+              </div>
+              
+              <div class="form-layout">
+                <div class="form-gif-container">
+                  <img src="${getOnlineGif(e.muscle, e.name)}" alt="${e.name} form animation" class="form-gif" loading="lazy">
+                </div>
+                
+                <div class="form-steps-container">
+                  <div class="form-steps">
+                    ${e.steps.map((s, k) => `
+                      <div class="form-step">
+                        <div class="step-dot" style="background:${d.accentBg};color:${d.accentText}">${k + 1}</div>
+                        <span>${s}</span>
+                      </div>`).join('')}
+                  </div>
+                  <div class="cues-row">${e.cues.map(c => `<span class="cue-pill">${c}</span>`).join('')}</div>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+        
+        <div class="tip-box" style="background:${d.tipColor};border-left-color:${d.tipBorder}">
+          <i class="ti ti-bulb" style="font-size:18px;margin-right:8px;color:${d.accentText};flex-shrink:0" aria-hidden="true"></i>
+          <span style="color:${d.accentText}">${d.tip}</span>
+        </div>
+      </div>`;
+    }
+
+    function toggleEx(j) {
+      const row = document.getElementById('row-' + j);
+      const form = document.getElementById('form-' + j);
+
+      if (openEx === j) {
+        row.classList.remove('open');
+        form.classList.remove('open');
+        openEx = null;
+      } else {
+        if (openEx !== null) {
+          document.getElementById('row-' + openEx).classList.remove('open');
+          document.getElementById('form-' + openEx).classList.remove('open');
+        }
+        row.classList.add('open');
+        form.classList.add('open');
+        openEx = j;
+      }
+    }
+
+    DAYS.forEach((d, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'tab-btn' + (i === 0 ? ' active' : '');
+      btn.style.borderColor = i === 0 ? d.accentBorder : '';
+      btn.style.color = i === 0 ? d.accentText : '';
+      btn.innerHTML = `<span class="tab-day">${d.label}</span><span class="tab-label">${d.focus.split(' & ')[0]}</span>`;
+
+      btn.onclick = () => {
+        document.querySelectorAll('.tab-btn').forEach((b, bi) => {
+          b.classList.remove('active');
+          b.style.borderColor = '';
+          b.style.color = '';
+        });
+        btn.classList.add('active');
+        btn.style.borderColor = d.accentBorder;
+        btn.style.color = d.accentText;
+        activeDay = i;
+        renderDay(i);
+      };
+      tabs.appendChild(btn);
+    });
+
+    // Initialize the first day
+    renderDay(0);
+  </script>
+</body>
+
+</html>
